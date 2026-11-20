@@ -18,7 +18,8 @@ class ParseError(RuntimeError):
 
 _DATE_RE = re.compile(r"\b(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})\b")
 _LICENSE_RE = re.compile(
-    r"(?:מספר\s*רישיון|רישיון(?:\s+(?:כריתה|העתקה))?\s*מס['׳]?|מס['׳]?\s*רישיון)\s*[:\-]?\s*(\d{5,9})")
+    r"(?:מספר\s*רישיון|רישיון(?:\s+(?:כריתה|העתקה))?\s*מס['׳]?|מס['׳]?\s*רישיון)\s*[:\-]?\s*(\d{5,9})"
+)
 _ADDRESS_RE = re.compile(r"(?:כתובת|מיקום|רחוב)\s*[:\-]\s*([^\n\r|]+)")
 _BLOCK_RE = re.compile(r"גוש\s*[:\-]?\s*(\d{4,6})")
 _PARCEL_RE = re.compile(r"חלקה\s*[:\-]?\s*([\d\s,\-–]+)")
@@ -26,7 +27,7 @@ _PUBLISH_DATE_RE = re.compile(r"(?:תאריך\s*פרסום|פורסם\s*ב)\s*[:
 _DEADLINE_RE = re.compile(r"(?:מועד\s*אחרון\s*להשגה|תאריך\s*אחרון\s*להגשת\s*השגה)\s*[:\-]?\s*(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})")
 _REASON_RE = re.compile(r"(?:עילה|סיבת\s*הכריתה|סיבה)\s*[:\-]\s*([^\n\r]+)")
 _TREE_LINE_RE = re.compile(
-    r"(?P<species>[א-ת\s\"'׳\-]{2,40}?)\s*[-–:|]\s*(?P<count>\d+)\s*(?:עצים|עץ)?\s*(?:\((?P<action>כריתה|העתקה)\)|[-–]\s*(?P<action2>כריתה|העתקה))?"
+    r"^(?P<species>[א-ת\s\"'׳\-]{2,40}?)\s*[-–:|]\s*(?P<count>\d+)(?![./-])\s*(?:עצים|עץ)?\s*(?:\((?P<action>כריתה|העתקה)\)|[-–]\s*(?P<action2>כריתה|העתקה))?$"
 )
 
 
@@ -175,7 +176,10 @@ def parse_pdf_text(text: str, source_id: str = "", source_url: str = "") -> list
         if not m:
             continue
         species = m.group("species").strip()
-        if any(skip in species for skip in ("רישיון", "גוש", "חלקה", "כתובת", "תאריך")):
+        if any(
+            skip in species
+            for skip in ("רישיון", "גוש", "חלקה", "כתובת", "תאריך", "מועד", "השגה", "פרסום", "עילה", "סיבה")
+        ):
             continue
         action_raw = m.group("action") or m.group("action2") or "כריתה"
         action = "העתקה" if "העתק" in action_raw else "כריתה"
