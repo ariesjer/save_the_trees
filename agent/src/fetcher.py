@@ -26,8 +26,14 @@ def fetch_source(source: dict[str, Any], timeout: float = 25.0) -> FetchedSource
     method = str(source.get("method", "GET")).upper()
     portal_url = str(source.get("portal_url") or url)
     headers = {
-        "User-Agent": "KiryatHaYovelTreeMonitor/0.1",
-        "Accept": "application/json, text/html, application/pdf, */*",
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Origin": "https://yeela-trees.moag.gov.il",
+        "Referer": portal_url,
     }
 
     try:
