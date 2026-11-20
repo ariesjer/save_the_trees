@@ -17,7 +17,8 @@ class ParseError(RuntimeError):
 
 
 _DATE_RE = re.compile(r"\b(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})\b")
-_LICENSE_RE = re.compile(r"(?:מספר\s*רישיון|רישיון\s*מס['׳]?|מס['׳]?\s*רישיון)\s*[:\-]?\s*(\d{5,9})")
+_LICENSE_RE = re.compile(
+    r"(?:מספר\s*רישיון|רישיון(?:\s+(?:כריתה|העתקה))?\s*מס['׳]?|מס['׳]?\s*רישיון)\s*[:\-]?\s*(\d{5,9})")
 _ADDRESS_RE = re.compile(r"(?:כתובת|מיקום|רחוב)\s*[:\-]\s*([^\n\r|]+)")
 _BLOCK_RE = re.compile(r"גוש\s*[:\-]?\s*(\d{4,6})")
 _PARCEL_RE = re.compile(r"חלקה\s*[:\-]?\s*([\d\s,\-–]+)")
