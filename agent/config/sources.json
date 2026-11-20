@@ -1,0 +1,29 @@
+{
+  "sources": [
+    {
+      "id": "yeela_moag_jerusalem_open",
+      "name": "מערכת יעלה (משרד החקלאות) — רישיונות פתוחים להשגה בירושלים",
+      "url": "https://yeela-trees.moag.gov.il/api/Fo/FOServiceRequest/getFOGridPublicityLicenses",
+      "portal_url": "https://yeela-trees.moag.gov.il/FoPublic/FoLicence",
+      "type": "yeela_api",
+      "method": "POST",
+      "payload": {
+        "cityId": 3000,
+        "licenseStatusId": 3,
+        "pageNumber": 1,
+        "itemsPerPage": 100
+      },
+      "enabled": true,
+      "notes": "cityId=3000 (ירושלים), licenseStatusId=3 (מושהה ופתוח להגשת השגה)"
+    },
+    {
+      "id": "jerusalem_municipality_trees",
+      "name": "עיריית ירושלים — פרסומי פקיד היערות העירוני",
+      "url": "https://www.jerusalem.muni.il/he/residents/environment/trees/",
+      "type": "html_and_pdf",
+      "method": "GET",
+      "enabled": false,
+      "notes": "מקור משני — להפעלה לאחר אימות מבנה העמוד"
+    }
+  ]
+}

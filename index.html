@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>טופס השגה על כריתת/העתקת עצים בוגרים | משרד החקלאות וביטחון המזון</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Banner (Hidden on Print) -->
+    <header class="hero-header no-print">
+      <div class="hero-inner">
+        <div class="hero-badge">
+          <span class="leaf-icon" aria-hidden="true">🌳</span>
+          <span>מערכת הגשת השגה לפקיד היערות</span>
+        </div>
+        <h1>טופס השגה על החלטת פקיד היערות האזורי</h1>
+        <p class="hero-subtitle">בבקשה למתן רישיון לכריתת/העתקת עץ/ים בוגר/ים — ניתן לצרף מערערים נוספים, לצרף מסמכים, לחתום דיגיטלית ולהפיק טופס רשמי לשליחה</p>
+
+        <div class="recipient-bar">
+          <div class="recipient-item">
+            <span class="label">אל:</span>
+            <strong>פקיד היערות הממשלתי — משרד החקלאות וביטחון המזון</strong>
+          </div>
+          <div class="recipient-item">
+            <span class="label">דוא"ל:</span>
+            <a href="mailto:trees@moag.gov.il">trees@moag.gov.il</a>
+          </div>
+          <div class="recipient-item">
+            <span class="label">פקס:</span>
+            <span dir="ltr">03-9485264</span>
+          </div>
+        </div>
+
+        <div class="toolbar-actions">
+          <button type="button" id="btnLoadSample" class="btn btn-secondary btn-sm">
+            טען נתוני דוגמה מהטופס
+          </button>
+          <button type="button" id="btnClearForm" class="btn btn-ghost btn-sm">
+            נקה טופס ריק
+          </button>
+          <span id="draftStatus" class="draft-status" aria-live="polite"></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Form Container -->
+    <main class="main-container no-print">
+      <form id="appealForm" novalidate>
+        <!-- Section 1: Case Details -->
+        <section class="card" aria-labelledby="sec-case">
+          <div class="card-header">
+            <span class="step-num">1</span>
+            <div>
+              <h2 id="sec-case">פרטי הבקשה והרישיון</h2>
+              <p class="card-desc">פרטי הרישיון נשוא ההשגה ותאריך הגשת הפנייה</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="licenseNumber">מספר רישיון נשוא ההשגה <span class="req">*</span></label>
+              <input type="text" id="licenseNumber" name="licenseNumber" required placeholder="לדוגמה: 1008726" />
+              <span class="error-msg" data-for="licenseNumber"></span>
+            </div>
+            <div class="field">
+              <label for="appealDate">תאריך הפנייה <span class="req">*</span></label>
+              <input type="text" id="appealDate" name="appealDate" required placeholder="DD.MM.YY" />
+              <span class="error-msg" data-for="appealDate"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Main Appellant + Additional Appellants -->
+        <section class="card" aria-labelledby="sec-appellants">
+          <div class="card-header">
+            <span class="step-num">2</span>
+            <div>
+              <h2 id="sec-appellants">פרטי מגיש ההשגה ומערערים נוספים</h2>
+              <p class="card-desc">מלאו את פרטי המערער הראשי. ניתן להוסיף מערערים נוספים (שם פרטי ומשפחה, כתובת וכתובת מייל).</p>
+            </div>
+          </div>
+
+          <div class="subsection-title">מגיש ההשגה הראשי</div>
+          <div class="grid-3">
+            <div class="field">
+              <label for="mainFirstName">שם פרטי <span class="req">*</span></label>
+              <input type="text" id="mainFirstName" name="mainFirstName" required placeholder="שם פרטי" />
+              <span class="error-msg" data-for="mainFirstName"></span>
+            </div>
+            <div class="field">
+              <label for="mainLastName">שם משפחה <span class="req">*</span></label>
+              <input type="text" id="mainLastName" name="mainLastName" required placeholder="שם משפחה" />
+              <span class="error-msg" data-for="mainLastName"></span>
+            </div>
+            <div class="field">
+              <label for="mainId">ת.ז <span class="req">*</span></label>
+              <input type="text" id="mainId" name="mainId" required inputmode="numeric" maxlength="9" placeholder="9 ספרות" />
+              <span class="error-msg" data-for="mainId"></span>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="field">
+              <label for="mainAddress">כתובת מלאה <span class="req">*</span></label>
+              <input type="text" id="mainAddress" name="mainAddress" required placeholder="רחוב, מספר בית, עיר" />
+              <span class="error-msg" data-for="mainAddress"></span>
+            </div>
+            <div class="field">
+              <label for="mainPhone">מס' טלפון <span class="req">*</span></label>
+              <input type="tel" id="mainPhone" name="mainPhone" required placeholder="050-0000000" />
+              <span class="error-msg" data-for="mainPhone"></span>
+            </div>
+            <div class="field">
+              <label for="mainEmail">דואר אלקטרוני <span class="req">*</span></label>
+              <input type="email" id="mainEmail" name="mainEmail" required placeholder="name@example.com" />
+              <span class="error-msg" data-for="mainEmail"></span>
+            </div>
+          </div>
+
+          <!-- Additional Appellants -->
+          <div class="additional-header">
+            <div>
+              <div class="subsection-title">מערערים נוספים (<span id="additionalCount">0</span>)</div>
+              <p class="muted-note">כל מערער נוסף יופיע בטופס הרשמי עם שם פרטי ומשפחה, כתובת וכתובת מייל.</p>
+            </div>
+            <div class="additional-actions">
+              <button type="button" id="btnAddAppellant" class="btn btn-outline">
+                + הוסף מערער נוסף
+              </button>
+              <button type="button" id="btnDownloadSheetsCsv" class="btn btn-secondary btn-sm">
+                הורד תבנית Sheets (CSV)
+              </button>
+              <button type="button" id="btnOpenImportModal" class="btn btn-secondary btn-sm">
+                ייבא מ-Google Sheets
+              </button>
+            </div>
+          </div>
+
+          <div class="drive-share-bar">
+            <span class="drive-share-label">שיתוף הטופס דרך Google Drive / קובץ:</span>
+            <button type="button" id="btnExportJson" class="btn btn-outline btn-sm">
+              שמור קובץ טופס ל-Drive (.json)
+            </button>
+            <label class="btn btn-outline btn-sm file-btn-label">
+              טען קובץ טופס מ-Drive (.json)
+              <input type="file" id="importJsonInput" accept=".json" hidden />
+            </label>
+          </div>
+
+          <div id="additionalAppellantsList" class="dynamic-list"></div>
+        </section>
+
+        <!-- Section 3: Location -->
+        <section class="card" aria-labelledby="sec-location">
+          <div class="card-header">
+            <span class="step-num">3</span>
+            <div>
+              <h2 id="sec-location">השטח לגביו הוגשה בקשת הכריתה/העתקה</h2>
+              <p class="card-desc">פרטי המקרקעין כפי שמופיעים ברישיון</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="field">
+              <label for="siteAddress">כתובת <span class="req">*</span></label>
+              <input type="text" id="siteAddress" name="siteAddress" required placeholder="לדוגמה: הגיא 1" />
+              <span class="error-msg" data-for="siteAddress"></span>
+            </div>
+            <div class="field">
+              <label for="siteBlock">גוש <span class="req">*</span></label>
+              <input type="text" id="siteBlock" name="siteBlock" required placeholder="לדוגמה: 30149" />
+              <span class="error-msg" data-for="siteBlock"></span>
+            </div>
+            <div class="field">
+              <label for="siteParcel">חלקה <span class="req">*</span></label>
+              <input type="text" id="siteParcel" name="siteParcel" required placeholder="לדוגמה: 110–111" />
+              <span class="error-msg" data-for="siteParcel"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Protected Trees -->
+        <section class="card" aria-labelledby="sec-trees">
+          <div class="card-header">
+            <span class="step-num">4</span>
+            <div>
+              <h2 id="sec-trees">האילנות המוגנים שאושרו או לא אושרו לכריתה/העתקה</h2>
+              <p class="card-desc">ניתן לערוך, להוסיף או להסיר מיני עצים מהטבלה</p>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="trees-table">
+              <thead>
+                <tr>
+                  <th>שם המין</th>
+                  <th style="width: 130px;">מספר אילנות</th>
+                  <th style="width: 170px;">כריתה או העתקה</th>
+                  <th style="width: 70px;">פעולה</th>
+                </tr>
+              </thead>
+              <tbody id="treesTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="trees-footer">
+            <button type="button" id="btnAddTree" class="btn btn-outline btn-sm">+ הוסף שורת עץ</button>
+            <div id="treesSummary" class="trees-summary"></div>
+          </div>
+        </section>
+
+        <!-- Section 5: Reason for Application -->
+        <section class="card" aria-labelledby="sec-reason">
+          <div class="card-header">
+            <span class="step-num">5</span>
+            <div>
+              <h2 id="sec-reason">הסיבה שבשלה הוגשה הבקשה, שנדחתה, להוצאת רישיון כריתה/העתקה</h2>
+              <p class="card-desc">סמנו את הסיבה הרלוונטית כפי שצוינה בבקשה</p>
+            </div>
+          </div>
+
+          <div class="reasons-grid">
+            <label class="checkbox-card">
+              <input type="checkbox" name="reasons" value="סכנה בטיחותית" />
+              <span>סכנה בטיחותית</span>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="reasons" value="אילנות חולים או מנוונים" />
+              <span>אילנות חולים או מנוונים</span>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="reasons" value="סכנה בריאותית" />
+              <span>סכנה בריאותית</span>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="reasons" value="צורכי בנייה/פיתוח בשטח שעליו צומחים האילנות" />
+              <span>צורכי בנייה/פיתוח בשטח שעליו צומחים האילנות</span>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="reasons" value="הכשרה חקלאית" />
+              <span>הכשרה חקלאית</span>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="reasons" value="אחר" id="reasonOtherCheck" />
+              <span>אחר, פרט</span>
+            </label>
+          </div>
+
+          <div class="field hidden" id="reasonOtherWrap" style="margin-top: 12px;">
+            <label for="reasonOtherText">פירוט סיבה אחרת</label>
+            <input type="text" id="reasonOtherText" name="reasonOtherText" placeholder="פרטו כאן..." />
+          </div>
+        </section>
+
+        <!-- Section 6: Arguments & Attachments -->
+        <section class="card" aria-labelledby="sec-arguments">
+          <div class="card-header">
+            <span class="step-num">6</span>
+            <div>
+              <h2 id="sec-arguments">נימוקים וצירוף מסמכים</h2>
+              <p class="card-desc">במקרה שההשגה מוגשת על דחיית בקשה, יש לפרט גם את נימוקי הדחייה. מומלץ לצרף תשובה שהתקבלה ומסמכים קשורים (כגון סקר עצים).</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="rejectionReasons">נימוקי פקיד היערות האזורי לדחיית הבקשה (אם רלוונטי)</label>
+            <textarea id="rejectionReasons" name="rejectionReasons" rows="2" placeholder="אופציונלי — למילוי במקרה שההשגה היא על דחיית בקשה"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="appealArguments">הנימוקים להשגה המוגשת לפקיד היערות הממשלתי במשרד החקלאות וביטחון המזון <span class="req">*</span></label>
+            <textarea id="appealArguments" name="appealArguments" rows="6" required placeholder="פרטו את הנימוקים המלאים להשגה..."></textarea>
+            <span class="error-msg" data-for="appealArguments"></span>
+          </div>
+
+          <div class="field">
+            <label for="attachmentsInput">צירוף מסמכים (סקר עצים, תשובת פקיד היערות, תמונות וכד')</label>
+            <div class="file-dropzone" id="fileDropzone">
+              <input type="file" id="attachmentsInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+              <div class="dropzone-text">
+                <strong>לחצו לבחירת קבצים</strong> או גררו לכאן (PDF, תמונות, Word)
+              </div>
+            </div>
+            <ul id="attachmentsList" class="attachments-list"></ul>
+          </div>
+        </section>
+
+        <!-- Section 7: Declaration & Signature -->
+        <section class="card" aria-labelledby="sec-sign">
+          <div class="card-header">
+            <span class="step-num">7</span>
+            <div>
+              <h2 id="sec-sign">הצהרה וחתימה</h2>
+              <p class="card-desc">אישור תנאי הגשת ההשגה וחתימת המשיג הראשי</p>
+            </div>
+          </div>
+
+          <label class="declaration-box">
+            <input type="checkbox" id="declarationCheck" name="declarationCheck" required />
+            <span>
+              <strong>* ידוע לי כי כל פרטי ההשגה, לרבות פרטי המשיג ופרטי ההתקשרות, מועברים לבעל הרישיון</strong>
+            </span>
+          </label>
+          <span class="error-msg" data-for="declarationCheck"></span>
+
+          <div class="grid-2" style="margin-top: 16px;">
+            <div class="field">
+              <label for="signatureName">שם החותם <span class="req">*</span></label>
+              <input type="text" id="signatureName" name="signatureName" required placeholder="מתעדכן אוטומטית מהשם המלא" />
+              <span class="error-msg" data-for="signatureName"></span>
+            </div>
+            <div class="field">
+              <div class="sig-label-row">
+                <label>חתימה דיגיטלית <span class="req">*</span></label>
+                <button type="button" id="btnClearSig" class="btn-link">נקה חתימה</button>
+              </div>
+              <div class="sig-pad-wrap">
+                <canvas id="signatureCanvas" width="420" height="130"></canvas>
+                <span class="sig-placeholder" id="sigPlaceholder">חתמו כאן באמצעות העכבר או האצבע</span>
+              </div>
+              <span class="error-msg" data-for="signatureCanvas"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Submit Bar -->
+        <div class="submit-bar">
+          <button type="submit" class="btn btn-primary btn-lg">
+            הפק והגש השגה
+          </button>
+          <button type="button" id="btnPreviewOnly" class="btn btn-secondary btn-lg">
+            תצוגה מקדימה של הטופס
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <!-- Official Form Preview & Export View (Shown after submit / preview, and used for Print) -->
+    <section id="previewSection" class="preview-section hidden" aria-live="polite">
+      <div class="preview-actions-bar no-print">
+        <div class="preview-status-banner" id="submitSuccessBanner">
+          <span class="check-circle">✓</span>
+          <div>
+            <strong>הטופס מוכן להגשה!</strong>
+            <span>ניתן לשלוח ישירות במייל, להדפיס/לשמור כ-PDF או להעתיק את הנוסח המלא.</span>
+          </div>
+        </div>
+        <div class="preview-buttons">
+          <a id="btnSendEmail" href="#" class="btn btn-primary">
+            שלח בדוא"ל ל-trees@moag.gov.il
+          </a>
+          <button type="button" id="btnPrintPdf" class="btn btn-secondary">
+            הדפס / שמור כ-PDF
+          </button>
+          <button type="button" id="btnCopyText" class="btn btn-outline">
+            העתק נוסח מלא
+          </button>
+          <button type="button" id="btnBackToEdit" class="btn btn-ghost">
+            חזור לעריכת הטופס
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Official Document -->
+      <article id="officialDocument" class="official-doc"></article>
+    </section>
+  </div>
+
+  <!-- Import from Google Sheets Modal -->
+  <div id="importSheetsModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="importModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="importModalTitle">ייבוא מערערים מקובץ Google Sheets / CSV</h3>
+        <button type="button" id="btnCloseImportModal" class="btn-danger-sm" aria-label="סגור">✕</button>
+      </div>
+      <p class="muted-note" style="margin-bottom: 12px;">
+        אפשר להעתיק שורות ישירות מ-Google Sheets (עם העמודות: <strong>שם פרטי, שם משפחה, כתובת, כתובת מייל</strong>) ולהדביק כאן, או לבחור קובץ CSV שהורד מהגיליון.
+      </p>
+      <div class="field" style="margin-bottom: 12px;">
+        <label for="sheetsPasteInput">הדבקה ישירה מ-Google Sheets:</label>
+        <textarea id="sheetsPasteInput" rows="5" placeholder="ישראל	ישראלי	הגיא 5, ירושלים	israel@example.com&#10;דנה	כהן	המייסדים 12, ירושלים	dana@example.com"></textarea>
+      </div>
+      <div class="field" style="margin-bottom: 16px;">
+        <label for="sheetsCsvFileInput">או העלאת קובץ CSV:</label>
+        <input type="file" id="sheetsCsvFileInput" accept=".csv,.txt" />
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="btnConfirmImportSheets" class="btn btn-primary">ייבא מערערים לטופס</button>
+        <button type="button" id="btnCancelImportModal" class="btn btn-outline">ביטול</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

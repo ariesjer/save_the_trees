@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kiryat-hayovel-tree-monitor"
+version = "0.1.0"
+description = "Monitoring agent for tree felling permits in Kiryat HaYovel, Jerusalem"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27.0",
+    "beautifulsoup4>=4.12.0",
+    "pypdf>=4.2.0",
+]
+
+[project.optional-dependencies]
+browser = ["playwright>=1.45.0"]
+dev = ["pytest>=8.0.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
