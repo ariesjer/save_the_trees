@@ -13,7 +13,7 @@ CONFIG_PATH = Path(__file__).resolve().parent.parent / "config" / "kiryat_hayove
 
 def test_normalize_hebrew_text_strips_prefixes_and_punctuation():
     assert normalize_hebrew_text('רח\' הנרייטה סולד 12') == "הנרייטה סולד 12"
-    assert normalize_hebrew_text('שד"ר הרצל 90') == 'שד ר הרצל 90'
+    assert normalize_hebrew_text("שד' הרצל 90") == "הרצל 90"
     assert normalize_hebrew_text("רחוב אברהם שטרן 5") == "אברהם שטרן 5"
 
 
